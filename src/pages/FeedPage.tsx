@@ -1,37 +1,31 @@
 import { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
 import apiClient from "../services/apiClient";
-
-interface IArticle {
-  author: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  source: { id: string; name: string };
-  title: string;
-  url: string;
-  urlToImage: string;
-}
+import NewsCard from "../components/widget/NewsCard";
+import { INews } from "../@types/News";
 
 const FeedPage = () => {
-  const [articles, setArticles] = useState<IArticle[]>([]);
+  const [newsArr, setNewsArr] = useState<INews[]>([]);
 
   useEffect(() => {
     (async () => {
       const res = await apiClient.get("/everything?q=bitcoin&apiKey=608e0565cf8a4984b7111ae82dcca97d");
-      setArticles(res.data.articles);
+      setNewsArr(res.data.articles);
     })();
   });
 
   return (
-    <div>
-      <h1>News Feed</h1>
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+      <Typography variant='h3' component='h1'>
+        News Feed
+      </Typography>
 
-      <ul>
-        {articles.map((article, i) => (
-          <li key={i}>{article.title}</li>
+      <Box component='ul' sx={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center", p: 0 }}>
+        {newsArr.map((news, i) => (
+          <NewsCard key={i} news={news} />
         ))}
-      </ul>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
