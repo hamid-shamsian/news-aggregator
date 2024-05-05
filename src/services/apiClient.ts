@@ -1,11 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import LogService from "./logService";
-import config from "../../config.json";
 
 const logService = new LogService<AxiosError>();
 
-const apiClient = axios.create({ baseURL: config.API_BASE_URL });
+const apiGetRequest = axios.create({ method: "get" }); // because ONLY GET method is used in this app. so I specified the method here to avoid chaining .get() every time...
 
 const errorHandler = async (error: AxiosError) => {
   const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;
@@ -18,6 +17,6 @@ const errorHandler = async (error: AxiosError) => {
   return Promise.reject(error);
 };
 
-apiClient.interceptors.response.use(null, errorHandler);
+apiGetRequest.interceptors.response.use(null, errorHandler);
 
-export default apiClient;
+export default apiGetRequest;
