@@ -26,7 +26,8 @@
         "content": null,
         "publishedAt": "webPublicationDate",
         "sourceURL": "webUrl"
-      }
+      },
+      "isDefault": true
     },
     {
       "name": "NewYork Times",

@@ -8,6 +8,7 @@ const getAllNewsByQueries = async (url: string, queries: string[]) => {
 
 const newsService = {
   getAllNewsByQueries
+  // , maybe other methods...
 };
 
 export default newsService;

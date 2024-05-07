@@ -1,4 +1,8 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import SelectBox from "../components/common/SelectBox";
+import LoadingSpinner from "../components/common/LoadingSpinner";
 import NewsCard from "../components/widget/NewsCard";
 import useNews from "../hooks/useNews";
 import { ISource } from "../@types";
@@ -7,7 +11,11 @@ import config from "../../config.json";
 const { SOURCES } = config;
 
 const FeedPage = () => {
-  const { data: newsArr, isLoading } = useNews(SOURCES[1] as ISource, ["q=gold"]);
+  const [source, setSource] = useState<ISource>(SOURCES[0] as ISource);
+
+  const { data: newsArr, isFetching } = useNews(source, ["q=gold"]);
+
+  const handleSourceChange = (value: string) => setSource(SOURCES[+value] as ISource);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
@@ -15,12 +23,19 @@ const FeedPage = () => {
         News Feed
       </Typography>
 
+      <SelectBox
+        label='Source'
+        options={SOURCES.map(({ name, isDefault }, i) => ({ label: name, value: String(i), isDefault }))}
+        onValueChange={handleSourceChange}
+      />
+
       <Box component='ul' sx={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center", p: 0 }}>
-        {isLoading && <CircularProgress />}
         {newsArr?.map((news, i) => (
           <NewsCard key={i} news={news} />
         ))}
       </Box>
+
+      {isFetching && <LoadingSpinner />}
     </Box>
   );
 };

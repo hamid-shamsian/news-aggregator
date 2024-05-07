@@ -23,4 +23,5 @@ export interface ISource {
   url: string;
   pathToNewsArrayInResponseBody: string;
   fieldsMapping: IFieldsMapping;
+  isDefault: boolean;
 }
