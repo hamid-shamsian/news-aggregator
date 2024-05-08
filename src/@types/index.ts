@@ -8,7 +8,7 @@ export interface INews {
   sourceURL: string;
 }
 
-export interface IFieldsMapping {
+export interface INewsFieldsMapping {
   author: string | null;
   title: string;
   description: string | null;
@@ -18,10 +18,34 @@ export interface IFieldsMapping {
   sourceURL: string;
 }
 
+export interface ICategory {
+  value: string;
+  label: string;
+}
+
+export interface ICategoryFieldsMapping {
+  value: string;
+  label: string;
+}
+
+export interface INewsEndPoint {
+  endPoint: string;
+  pathToDataInResponseBody: string;
+  categoryQueryParam: string;
+  fieldsMapping: INewsFieldsMapping;
+}
+
+export interface ICategoriesEndPoint {
+  endPoint: string;
+  pathToDataInResponseBody: string;
+  fieldsMapping: ICategoryFieldsMapping;
+}
+
 export interface ISource {
   name: string;
-  url: string;
-  pathToNewsArrayInResponseBody: string;
-  fieldsMapping: IFieldsMapping;
-  isDefault: boolean;
+  isDefault?: boolean;
+  baseURL: string;
+  apiKeyParam: string;
+  news: INewsEndPoint;
+  categories: ICategoriesEndPoint | string[];
 }

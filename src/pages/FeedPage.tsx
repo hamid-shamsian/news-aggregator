@@ -9,13 +9,13 @@ import { ISource } from "../@types";
 import config from "../../config.json";
 
 const { SOURCES } = config;
+const sourceOptions = SOURCES.map(({ name, isDefault }, i) => ({ label: name, value: String(i), isDefault }));
 
 const FeedPage = () => {
-  const [source, setSource] = useState<ISource>(SOURCES[0] as ISource);
-
+  const [source, setSource] = useState<ISource>();
   const { data: newsArr, isFetching } = useNews(source, ["q=gold"]);
 
-  const handleSourceChange = (value: string) => setSource(SOURCES[+value] as ISource);
+  const handleSourceChange = (value: string) => setSource(SOURCES[+value]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
@@ -23,11 +23,7 @@ const FeedPage = () => {
         News Feed
       </Typography>
 
-      <SelectBox
-        label='Source'
-        options={SOURCES.map(({ name, isDefault }, i) => ({ label: name, value: String(i), isDefault }))}
-        onValueChange={handleSourceChange}
-      />
+      <SelectBox label='Source' options={sourceOptions} onValueChange={handleSourceChange} />
 
       <Box component='ul' sx={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center", p: 0 }}>
         {newsArr?.map((news, i) => (

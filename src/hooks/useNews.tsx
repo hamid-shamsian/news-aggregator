@@ -1,18 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import { INews, ISource } from "../@types";
 import newsService from "../services/newsService";
 import { getValueFromPath, mapToNewsModel } from "../utils/utilFunctions";
+import { INews, ISource } from "../@types";
 
-const fetchNews = async ({ url, pathToNewsArrayInResponseBody, fieldsMapping }: ISource, queries: string[]) => {
-  const response = await newsService.getAllNewsByQueries(url, queries);
-  const newsArr = getValueFromPath(response, pathToNewsArrayInResponseBody);
-  return newsArr.map((news: any) => mapToNewsModel(news, fieldsMapping)) as INews[];
+const fetchNews = async (
+  { baseURL, apiKeyParam, news: { endPoint, pathToDataInResponseBody, fieldsMapping } }: ISource,
+  queries: string[]
+): Promise<INews[]> => {
+  const newsURL = baseURL + endPoint + "?" + apiKeyParam;
+  const response = await newsService.getAllNewsByQueries(newsURL, queries);
+  const newsArr = getValueFromPath(response, pathToDataInResponseBody);
+  return newsArr.map((news: any) => mapToNewsModel(news, fieldsMapping));
 };
 
-const useNews = (source: ISource, queries: string[]) =>
+const useNews = (source: ISource | undefined, queries: string[] = []) =>
   useQuery<INews[], Error>({
-    queryKey: [source.name, queries.join("")],
-    queryFn: () => fetchNews(source, queries),
+    queryKey: source ? [source.name, queries.join("")] : ["no-source"],
+    queryFn: () => (source ? fetchNews(source, queries) : Promise.reject()),
     placeholderData: prevData => prevData
   });
 

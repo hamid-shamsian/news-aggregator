@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -15,7 +15,12 @@ interface SelectBoxProps {
 }
 
 const SelectBox = ({ label, options = [], onValueChange }: SelectBoxProps) => {
-  const [value, setValue] = useState(options.find(option => option.isDefault)?.value ?? "");
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    const defaultValue = options.find(option => option.isDefault)?.value;
+    if (defaultValue !== undefined) handleChange({ target: { value: defaultValue } } as SelectChangeEvent);
+  }, [options]);
 
   const handleChange = ({ target: { value } }: SelectChangeEvent) => {
     setValue(value);

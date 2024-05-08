@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import { IFieldsMapping, INews } from "../@types";
 import LogService from "./../services/logService";
+import { INewsFieldsMapping, INews } from "../@types";
 
 const logService = new LogService<string>();
 
@@ -19,7 +19,7 @@ export const getValueFromPath = (object: { [key: string]: any }, path: string): 
 
 export const mapToNewsModel = (
   news: { [key: string]: any },
-  { author, title, description, image, content, publishedAt, sourceURL }: IFieldsMapping
+  { author, title, description, image, content, publishedAt, sourceURL }: INewsFieldsMapping
 ): INews => ({
   author: author ? news[author] : "No Author",
   title: news[title],
