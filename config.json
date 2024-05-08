@@ -2,8 +2,9 @@
   "SOURCES": [
     {
       "name": "News API",
+      "isDefault": true,
       "baseURL": "https://newsapi.org/v2",
-      "apiKeyParam": "apiKey=608e0565cf8a4984b7111ae82dcca97d",
+      "staticParams": "apiKey=608e0565cf8a4984b7111ae82dcca97d&language=en",
       "news": {
         "endPoint": "/top-headlines",
         "pathToDataInResponseBody": "articles",
@@ -18,21 +19,41 @@
           "sourceURL": "url"
         }
       },
-      "categories": [
-        "business",
-        "entertainment",
-        "general",
-        "health",
-        "science",
-        "sports",
-        "technology"
+      "staticCategories": [
+        {
+          "value": "business",
+          "label": "Business"
+        },
+        {
+          "value": "entertainment",
+          "label": "Entertainment"
+        },
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "health",
+          "label": "Health"
+        },
+        {
+          "value": "science",
+          "label": "Science"
+        },
+        {
+          "value": "sports",
+          "label": "Sports"
+        },
+        {
+          "value": "technology",
+          "label": "Technology"
+        }
       ]
     },
     {
       "name": "The Guardian",
-      "isDefault": true,
       "baseURL": "https://content.guardianapis.com",
-      "apiKeyParam": "api-key=5b28d2d9-e604-417c-b745-9b201024e2d3",
+      "staticParams": "api-key=5b28d2d9-e604-417c-b745-9b201024e2d3",
       "news": {
         "endPoint": "/search",
         "pathToDataInResponseBody": "response.results",

@@ -45,7 +45,8 @@ export interface ISource {
   name: string;
   isDefault?: boolean;
   baseURL: string;
-  apiKeyParam: string;
+  staticParams: string;
   news: INewsEndPoint;
-  categories: ICategoriesEndPoint | string[];
+  categories?: ICategoriesEndPoint;
+  staticCategories?: ICategory[];
 }
