@@ -41,12 +41,17 @@ export interface ICategoriesEndPoint {
   fieldsMapping: ICategoryFieldsMapping;
 }
 
+export enum DataType {
+  news = "news", // the name should be used in config.json for news endpoint config object
+  category = "categories" // the name should be used in config.json for categories endpoint config object
+}
+
 export interface ISource {
   name: string;
   isDefault?: boolean;
   baseURL: string;
   staticParams: string;
-  news: INewsEndPoint;
-  categories?: ICategoriesEndPoint;
+  [DataType.news]: INewsEndPoint;
+  [DataType.category]?: ICategoriesEndPoint;
   staticCategories?: ICategory[];
 }

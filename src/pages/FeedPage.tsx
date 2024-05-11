@@ -3,9 +3,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import SelectBox from "../components/common/SelectBox";
 import LoadingSpinner from "../components/common/LoadingSpinner";
+import DynamicCategoriesBox from "../components/widget/DynamicCategoriesBox";
 import NewsCard from "../components/widget/NewsCard";
-import useNews from "../hooks/useNews";
-import { ISource } from "../@types";
+import useData from "../hooks/useData";
+import { DataType, INews, ISource } from "../@types";
 import config from "../../config.json";
 
 const { SOURCES } = config;
@@ -18,7 +19,7 @@ const FeedPage = () => {
   let queries = "";
   if (category) queries += "&" + `${source?.news.categoryQueryParam}=${category}`;
 
-  const { data: newsArr, isFetching } = useNews(source, queries);
+  const { data: newsArr, isFetching } = useData<INews>(DataType.news, source, queries);
 
   const handleSourceChange = (value: string) => {
     setSource(SOURCES[+value]);
@@ -37,7 +38,9 @@ const FeedPage = () => {
 
       <Box sx={{ alignSelf: "stretch", display: "flex", gap: 5, flexWrap: "wrap" }}>
         <SelectBox label='Source' options={sourceOptions} onValueChange={handleSourceChange} />
-        {source?.staticCategories ? <SelectBox label='Category' options={source.staticCategories} onValueChange={handleCategoryChange} /> : null}
+
+        {source?.staticCategories && <SelectBox label='Category' options={source.staticCategories} onValueChange={handleCategoryChange} />}
+        {source?.categories && <DynamicCategoriesBox source={source} onCategoryChange={handleCategoryChange} />}
       </Box>
 
       <Box component='ul' sx={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center", p: 0 }}>

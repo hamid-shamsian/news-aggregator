@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import LogService from "./../services/logService";
-import { INewsFieldsMapping, INews } from "../@types";
+import { INewsFieldsMapping, INews, ICategoryFieldsMapping, ICategory, DataType } from "../@types";
 
 const logService = new LogService<string>();
 
@@ -17,15 +17,28 @@ export const getValueFromPath = (object: { [key: string]: any }, path: string): 
   return object;
 };
 
-export const mapToNewsModel = (
-  news: { [key: string]: any },
-  { author, title, description, image, content, publishedAt, sourceURL }: INewsFieldsMapping
-): INews => ({
-  author: author ? news[author] : "No Author",
-  title: news[title],
-  description: description ? news[description] : "No Description...",
-  image: image ? news[image] : "/no-image.svg",
-  content: content ? news[content] : "No Content! Visit Source Link to Read More...",
-  publishedAt: news[publishedAt],
-  sourceURL: news[sourceURL]
-});
+export const mapToDataModel = (
+  dataType: DataType,
+  data: { [key: string]: any },
+  fieldsMapping: INewsFieldsMapping | ICategoryFieldsMapping
+): INews | ICategory => {
+  switch (dataType) {
+    case DataType.news:
+      const { author, title, description, image, content, publishedAt, sourceURL } = fieldsMapping as INewsFieldsMapping;
+      return {
+        author: author ? data[author] : "No Author",
+        title: data[title],
+        description: description ? data[description] : "No Description...",
+        image: image ? data[image] : "/no-image.svg",
+        content: content ? data[content] : "No Content! Visit Source Link to Read More...",
+        publishedAt: data[publishedAt],
+        sourceURL: data[sourceURL]
+      };
+    case DataType.category:
+      const { value, label } = fieldsMapping as ICategoryFieldsMapping;
+      return {
+        value: data[value],
+        label: data[label]
+      };
+  }
+};

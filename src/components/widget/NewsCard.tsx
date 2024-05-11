@@ -6,7 +6,7 @@ interface NewsCardProps {
 }
 
 const NewsCard = ({ news }: NewsCardProps) => {
-  const { image, title, description } = news;
+  const { image, title, description, sourceURL } = news;
 
   return (
     <Card component='li' sx={{ width: 300 }}>
@@ -19,7 +19,7 @@ const NewsCard = ({ news }: NewsCardProps) => {
           {description}
         </Typography>
       </CardContent>
-      <Button size='small' sx={{ m: 2, p: 1, float: "right" }}>
+      <Button LinkComponent='a' href={sourceURL} target='_blank' size='small' sx={{ m: 2, p: 1, float: "right" }}>
         Read More...
       </Button>
     </Card>
