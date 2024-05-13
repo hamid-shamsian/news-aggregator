@@ -75,6 +75,10 @@
           "value": "id",
           "label": "webTitle"
         }
+      },
+      "filteringByDate": {
+        "fromQueryParam": "from-date",
+        "toQueryParam": "to-date"
       }
     }
   ]

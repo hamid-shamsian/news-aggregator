@@ -10,12 +10,12 @@ interface DynamicCategoriesBoxProps {
 }
 
 const DynamicCategoriesBox = ({ source, onCategoryChange }: DynamicCategoriesBoxProps) => {
-  const { data: categoriesArr, isFetching } = useData<ICategory>(DataType.category, source);
+  const { data: categoriesArr = [], isFetching } = useData<ICategory>(DataType.category, source);
 
   return (
     <Box sx={{ position: "relative", width: "100%" }}>
-      {isFetching && <CircularProgress size={23} sx={{ position: "absolute", right: 8, top: 16, backgroundColor: "#fff", zIndex: 1 }} />}
-      {categoriesArr && <SelectBox label='Category' options={categoriesArr} onValueChange={onCategoryChange} />}
+      {isFetching && <CircularProgress size={23} sx={{ position: "absolute", right: 8, top: 16, bgcolor: "#fff", zIndex: 1 }} />}
+      <SelectBox label='Category' options={categoriesArr} onValueChange={onCategoryChange} />
     </Box>
   );
 };

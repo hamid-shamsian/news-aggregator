@@ -54,4 +54,8 @@ export interface ISource {
   [DataType.news]: INewsEndPoint;
   [DataType.category]?: ICategoriesEndPoint;
   staticCategories?: ICategory[];
+  filteringByDate?: {
+    fromQueryParam: string;
+    toQueryParam: string;
+  };
 }
