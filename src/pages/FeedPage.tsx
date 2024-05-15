@@ -1,13 +1,14 @@
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import InfiniteScroll from "react-infinite-scroll-component";
 import SelectBox from "../components/common/SelectBox";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import DynamicCategoriesBox from "../components/widget/DynamicCategoriesBox";
 import UncontrolledDatePicker, { IDatePickerHandle } from "../components/widget/UncontrolledDatePicker";
 import NewsCard from "../components/widget/NewsCard";
-import useData from "../hooks/useData";
+import { useInfiniteData } from "../hooks/useData";
 import { DataType, INews, ISource } from "../@types";
 import config from "../../config.json";
 
@@ -24,7 +25,7 @@ const FeedPage = () => {
   const toDateRef = useRef<IDatePickerHandle>(null);
 
   const queries = getQueries(source, category, fromDate, toDate);
-  const { data: newsArr, isFetching } = useData<INews>(DataType.news, source, queries);
+  const { data: newsArr, isFetching, hasNextPage, fetchNextPage } = useInfiniteData<INews>(DataType.news, source, queries);
 
   const handleSourceChange = (value: string) => {
     setSource(SOURCES[+value]);
@@ -41,6 +42,8 @@ const FeedPage = () => {
     setFromDate(fromDateRef.current?.getValue() ?? "");
     setToDate(toDateRef.current?.getValue() ?? "");
   };
+
+  const fetchedNewsCount = newsArr?.pages.reduce((total, page) => total + page.length, 0) ?? 0;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
@@ -65,13 +68,24 @@ const FeedPage = () => {
         )}
       </Box>
 
-      <Box component='ul' sx={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center", p: 0 }}>
-        {newsArr?.map((news, i) => (
-          <NewsCard key={i} news={news} />
-        ))}
-      </Box>
+      <InfiniteScroll
+        dataLength={fetchedNewsCount}
+        hasMore={hasNextPage}
+        next={() => fetchNextPage()}
+        loader={<LoadingSpinner message='Loading more...' />}
+      >
+        <Box component='ul' sx={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center", p: 0 }}>
+          {newsArr?.pages.map((page, i) => (
+            <Fragment key={i}>
+              {page.map((news, j) => (
+                <NewsCard key={j} news={news} />
+              ))}
+            </Fragment>
+          ))}
+        </Box>
+      </InfiniteScroll>
 
-      {isFetching && <LoadingSpinner />}
+      {isFetching && !newsArr && <LoadingSpinner fullPage={true} />}
     </Box>
   );
 };

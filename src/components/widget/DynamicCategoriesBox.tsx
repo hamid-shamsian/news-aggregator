@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import SelectBox from "../common/SelectBox";
-import useData from "../../hooks/useData";
+import { useData } from "../../hooks/useData";
 import { DataType, ICategory, ISource } from "../../@types";
 
 interface DynamicCategoriesBoxProps {
