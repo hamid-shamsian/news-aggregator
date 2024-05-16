@@ -30,14 +30,12 @@ export interface ICategoryFieldsMapping {
 
 export interface INewsEndPoint {
   endPoint: string;
-  pathToDataInResponseBody: string;
   categoryQueryParam: string;
   fieldsMapping: INewsFieldsMapping;
 }
 
 export interface ICategoriesEndPoint {
   endPoint: string;
-  pathToDataInResponseBody: string;
   fieldsMapping: ICategoryFieldsMapping;
 }
 
@@ -51,6 +49,8 @@ export interface ISource {
   isDefault?: boolean;
   baseURL: string;
   staticParams: string;
+  pathToDataInResponseBody: string;
+  pathToTotalInResponseBody: string;
   pageQueryParam: string;
   pageSizeQueryParam: string;
   [DataType.news]: INewsEndPoint;

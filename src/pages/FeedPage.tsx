@@ -12,7 +12,7 @@ import { useInfiniteData } from "../hooks/useData";
 import { DataType, INews, ISource } from "../@types";
 import config from "../../config.json";
 
-const { SOURCES } = config;
+const { SOURCES }: { SOURCES: ISource[] } = config;
 const sourceOptions = SOURCES.map(({ name, isDefault }, i) => ({ label: name, value: String(i), isDefault }));
 
 const FeedPage = () => {
@@ -43,7 +43,7 @@ const FeedPage = () => {
     setToDate(toDateRef.current?.getValue() ?? "");
   };
 
-  const fetchedNewsCount = newsArr?.pages.reduce((total, page) => total + page.length, 0) ?? 0;
+  const fetchedNewsCount = newsArr?.pages.reduce((total, page) => total + page.dataArr.length, 0) ?? 0;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
@@ -77,7 +77,7 @@ const FeedPage = () => {
         <Box component='ul' sx={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center", p: 0 }}>
           {newsArr?.pages.map((page, i) => (
             <Fragment key={i}>
-              {page.map((news, j) => (
+              {page.dataArr.map((news, j) => (
                 <NewsCard key={j} news={news} />
               ))}
             </Fragment>
@@ -92,9 +92,9 @@ const FeedPage = () => {
 
 const getQueries = (source: ISource | undefined, category: string, fromDate: string, toDate: string) => {
   let queries = "";
-  if (category) queries += "&" + `${source?.news.categoryQueryParam}=${category}`;
-  if (fromDate) queries += "&" + `${source?.filteringByDate?.fromQueryParam}=${fromDate}`;
-  if (toDate) queries += "&" + `${source?.filteringByDate?.toQueryParam}=${toDate}`;
+  if (category) queries += `&${source?.news.categoryQueryParam}=${category}`;
+  if (fromDate) queries += `&${source?.filteringByDate?.fromQueryParam}=${fromDate}`;
+  if (toDate) queries += `&${source?.filteringByDate?.toQueryParam}=${toDate}`;
   return queries;
 };
 
