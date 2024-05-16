@@ -51,6 +51,8 @@ export interface ISource {
   isDefault?: boolean;
   baseURL: string;
   staticParams: string;
+  pageQueryParam: string;
+  pageSizeQueryParam: string;
   [DataType.news]: INewsEndPoint;
   [DataType.category]?: ICategoriesEndPoint;
   staticCategories?: ICategory[];

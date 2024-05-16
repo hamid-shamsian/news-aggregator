@@ -4,6 +4,8 @@
       "name": "News API",
       "baseURL": "https://newsapi.org/v2",
       "staticParams": "apiKey=608e0565cf8a4984b7111ae82dcca97d&language=en",
+      "pageQueryParam": "page",
+      "pageSizeQueryParam": "pageSize",
       "news": {
         "endPoint": "/top-headlines",
         "pathToDataInResponseBody": "articles",
@@ -19,6 +21,10 @@
         }
       },
       "staticCategories": [
+        {
+          "value": "",
+          "label": "All"
+        },
         {
           "value": "business",
           "label": "Business"
@@ -54,6 +60,8 @@
       "isDefault": true,
       "baseURL": "https://content.guardianapis.com",
       "staticParams": "api-key=5b28d2d9-e604-417c-b745-9b201024e2d3",
+      "pageQueryParam": "page",
+      "pageSizeQueryParam": "page-size",
       "news": {
         "endPoint": "/search",
         "pathToDataInResponseBody": "response.results",

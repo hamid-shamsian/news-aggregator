@@ -25,7 +25,7 @@ const FeedPage = () => {
   const toDateRef = useRef<IDatePickerHandle>(null);
 
   const queries = getQueries(source, category, fromDate, toDate);
-  const { data: newsArr, isFetching, hasNextPage, fetchNextPage } = useInfiniteData<INews>(DataType.news, source, queries);
+  const { data: newsArr, isFetching, hasNextPage, fetchNextPage } = useInfiniteData<INews>(DataType.news, source, 6, queries);
 
   const handleSourceChange = (value: string) => {
     setSource(SOURCES[+value]);
