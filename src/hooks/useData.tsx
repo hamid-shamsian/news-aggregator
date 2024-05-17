@@ -3,7 +3,7 @@ import apiGetRequest from "../services/apiClient";
 import { getValueFromPath, mapToDataModel } from "../utils/utilFunctions";
 import { ISource, DataType } from "../@types";
 
-interface IResponse<T> {
+export interface IResponse<T> {
   dataArr: T[];
   total: number;
 }
