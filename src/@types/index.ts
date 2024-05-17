@@ -53,6 +53,7 @@ export interface ISource {
   pathToTotalInResponseBody: string;
   pageQueryParam: string;
   pageSizeQueryParam: string;
+  searchQueryParam: string;
   [DataType.news]: INewsEndPoint;
   [DataType.category]?: ICategoriesEndPoint;
   staticCategories?: ICategory[];

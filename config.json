@@ -8,6 +8,7 @@
       "pathToTotalInResponseBody": "totalResults",
       "pageQueryParam": "page",
       "pageSizeQueryParam": "pageSize",
+      "searchQueryParam": "q",
       "news": {
         "endPoint": "/top-headlines",
         "categoryQueryParam": "category",
@@ -65,6 +66,8 @@
       "pathToTotalInResponseBody": "response.total",
       "pageQueryParam": "page",
       "pageSizeQueryParam": "page-size",
+      "searchQueryParam": "q",
+      "aa": 10,
       "news": {
         "endPoint": "/search",
         "categoryQueryParam": "section",
