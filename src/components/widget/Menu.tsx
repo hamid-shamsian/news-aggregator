@@ -1,4 +1,5 @@
 import { useState, ReactNode } from "react";
+import { useDispatch } from "react-redux";
 import { useTheme, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -15,9 +16,12 @@ import ListItemText from "@mui/material/ListItemText";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import CloseIcon from "@mui/icons-material/Close";
-import CustomNavLink from "../common/CustomNavLink";
 import MobileMenu from "./MobileMenu";
 import DesktopMenu from "./DesktopMenu";
+import CustomNavLink from "../common/CustomNavLink";
+import ThemeModeSwitch from "../mui-customized/ThemeModeSwitch";
+import useThemeMode from "../../hooks/useThemeMode";
+import { themeModeActions } from "../../redux/features/themeModeSlice";
 
 const menuItems = [
   { title: "News Feed", to: "/", icon: <NewspaperIcon /> },
@@ -30,6 +34,8 @@ const Menu = ({ children }: { children: ReactNode }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const ResponsiveMenu = isMobile ? MobileMenu : DesktopMenu;
+  const dispatch = useDispatch();
+  const themeMode = useThemeMode();
 
   const toggleMenu = () => setOpen(prevState => !prevState);
 
@@ -40,6 +46,9 @@ const Menu = ({ children }: { children: ReactNode }) => {
           <IconButton color='inherit' aria-label='open drawer' onClick={toggleMenu} edge='start'>
             {!open ? <MenuIcon /> : isMobile ? <CloseIcon /> : <ChevronLeftIcon />}
           </IconButton>
+
+          <ThemeModeSwitch checked={themeMode === "dark"} onChange={() => dispatch(themeModeActions.toggle())} />
+
           <Typography variant='h6' noWrap component='h1'>
             News Aggregator
           </Typography>

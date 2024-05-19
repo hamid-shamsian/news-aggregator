@@ -19,7 +19,8 @@ const DateFilterBox = ({ onChangeValues }: DateFilterBoxProps) => {
     <Box
       sx={{
         width: "100%",
-        border: "1px dashed #aaa",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 1,
         p: 2,
         display: "grid",

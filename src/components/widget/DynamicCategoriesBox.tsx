@@ -14,7 +14,7 @@ const DynamicCategoriesBox = ({ source, onCategoryChange }: DynamicCategoriesBox
 
   return (
     <Box sx={{ position: "relative", width: "100%" }}>
-      {isFetching && <CircularProgress size={23} sx={{ position: "absolute", right: 8, top: 16, bgcolor: "#fff", zIndex: 1 }} />}
+      {isFetching && <CircularProgress size={23} sx={{ position: "absolute", right: 8, top: 16, bgcolor: "background.paper", zIndex: 1 }} />}
       <SelectBox label='Category' options={[{ label: "All", value: "" }, ...(data?.dataArr ?? [])]} onValueChange={onCategoryChange} />
     </Box>
   );
