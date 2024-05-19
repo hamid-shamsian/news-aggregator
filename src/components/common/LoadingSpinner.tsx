@@ -17,7 +17,7 @@ const LoadingSpinner = ({ fullPage, message, layout = "horizontal" }: LoadingSpi
       justifyContent: "center",
       alignItems: "center",
       gap: 5,
-      ...(fullPage && { position: "fixed", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#fff6" })
+      ...(fullPage && { position: "fixed", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "secondary.main" })
     }}
   >
     <CircularProgress size={fullPage ? 80 : 30} />

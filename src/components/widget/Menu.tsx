@@ -43,11 +43,12 @@ const Menu = ({ children }: { children: ReactNode }) => {
     <Box sx={{ display: "flex" }}>
       <AppBar sx={{ position: "fixed", zIndex: 5000 }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <IconButton color='inherit' aria-label='open drawer' onClick={toggleMenu} edge='start'>
-            {!open ? <MenuIcon /> : isMobile ? <CloseIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-
-          <ThemeModeSwitch checked={themeMode === "dark"} onChange={() => dispatch(themeModeActions.toggle())} />
+          <Box>
+            <IconButton color='inherit' onClick={toggleMenu} edge='start' sx={{ mr: 3 }}>
+              {!open ? <MenuIcon /> : isMobile ? <CloseIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+            <ThemeModeSwitch checked={themeMode === "dark"} onChange={() => dispatch(themeModeActions.toggle())} />
+          </Box>
 
           <Typography variant='h6' noWrap component='h1'>
             News Aggregator
