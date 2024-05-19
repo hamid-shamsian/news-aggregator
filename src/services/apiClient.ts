@@ -7,6 +7,8 @@ const logService = new LogService<AxiosError>();
 const apiGetRequest = axios.create({ method: "get" }); // because ONLY GET method is used in this app. so I specified the method here to avoid chaining .get() every time...
 
 const errorHandler = async (error: AxiosError) => {
+  if (error.code === "ERR_CANCELED") return;
+
   const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;
 
   if (!expectedError) {

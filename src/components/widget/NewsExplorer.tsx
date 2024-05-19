@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import DynamicCategoriesBox from "./DynamicCategoriesBox";
 import DateFilterBox from "./DateFilterBox";
@@ -14,6 +15,8 @@ interface NewsAggregatorProps {
   searchQuery?: string;
 }
 
+const pageSize = 6;
+
 const NewsExplorer = ({ sources, searchQuery }: NewsAggregatorProps) => {
   const sourceOptions = useMemo(() => sources.map(({ name, isDefault }, i) => ({ label: name, value: String(i), isDefault })), [sources]);
 
@@ -21,8 +24,13 @@ const NewsExplorer = ({ sources, searchQuery }: NewsAggregatorProps) => {
   const [category, setCategory] = useState("");
   const [dateFilter, setDateFilter] = useState({ from: "", to: "" });
 
+  const queryClient = useQueryClient();
   const queries = getQueries(source, category, dateFilter, searchQuery);
-  const { data: news, isFetching, hasNextPage, fetchNextPage } = useInfiniteData<INews>(DataType.news, source, 6, queries);
+  const { data: news, isFetching, hasNextPage, fetchNextPage } = useInfiniteData<INews>(DataType.news, source, pageSize, queries);
+
+  const cancelFetch = () => {
+    queryClient.cancelQueries({ queryKey: [DataType.news, source?.name ?? "no-source", pageSize, queries] });
+  };
 
   const handleSourceChange = (value: string) => {
     setSource(sources[+value]);
@@ -53,7 +61,7 @@ const NewsExplorer = ({ sources, searchQuery }: NewsAggregatorProps) => {
         {({ item }) => <NewsCard news={item} />}
       </InfiniteList>
 
-      {isFetching && !news && <LoadingSpinner fullPage={true} />}
+      {isFetching && !news && <LoadingSpinner fullPage={true} onCancel={cancelFetch} layout='vertical' />}
     </>
   );
 };
