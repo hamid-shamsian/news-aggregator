@@ -2,7 +2,7 @@ import { ComponentType, Fragment } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Box from "@mui/material/Box";
 import LoadingSpinner from "../common/LoadingSpinner";
-import { IResponse } from "../../hooks/useData";
+import { IResponse } from "../../@types";
 
 interface InfiniteNewsContainerProps<T> {
   data: IResponse<T>[];

@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import DynamicCategoriesBox from "./DynamicCategoriesBox";
@@ -8,6 +9,8 @@ import NewsCard from "./NewsCard";
 import SelectBox from "../common/SelectBox";
 import LoadingSpinner from "../common/LoadingSpinner";
 import { useInfiniteData } from "../../hooks/useData";
+import useFilters from "../../hooks/useFilters";
+import { filtersActions } from "../../redux/features/filtersSlice";
 import { DataType, INews, ISource } from "../../@types";
 
 interface NewsAggregatorProps {
@@ -20,9 +23,8 @@ const pageSize = 6;
 const NewsExplorer = ({ sources, searchQuery }: NewsAggregatorProps) => {
   const sourceOptions = useMemo(() => sources.map(({ name, isDefault }, i) => ({ label: name, value: String(i), isDefault })), [sources]);
 
-  const [source, setSource] = useState<ISource>();
-  const [category, setCategory] = useState("");
-  const [dateFilter, setDateFilter] = useState({ from: "", to: "" });
+  const dispatch = useDispatch();
+  const { source, category, dateFilter } = useFilters();
 
   const queryClient = useQueryClient();
   const queries = getQueries(source, category, dateFilter, searchQuery);
@@ -33,17 +35,15 @@ const NewsExplorer = ({ sources, searchQuery }: NewsAggregatorProps) => {
   };
 
   const handleSourceChange = (value: string) => {
-    setSource(sources[+value]);
-    setCategory("");
-    setDateFilter({ from: "", to: "" });
+    dispatch(filtersActions.changeSource(sources[+value]));
   };
 
   const handleCategoryChange = (value: string) => {
-    setCategory(value);
+    dispatch(filtersActions.changeCategory(value));
   };
 
   const handleDateFilter = (values: { from: string; to: string }) => {
-    setDateFilter(values);
+    dispatch(filtersActions.changeDateFilter(values));
   };
 
   return (

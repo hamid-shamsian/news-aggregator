@@ -25,7 +25,7 @@ const LoadingSpinner = ({ fullPage, message, layout = "horizontal", onCancel }: 
     <CircularProgress size={fullPage ? 80 : 30} />
     {message && <Typography>{message}</Typography>}
     {onCancel && (
-      <Button variant='contained' onClick={onCancel}>
+      <Button variant='contained' color='error' onClick={onCancel}>
         Cancel
       </Button>
     )}

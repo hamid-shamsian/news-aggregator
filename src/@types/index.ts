@@ -62,3 +62,19 @@ export interface ISource {
     toQueryParam: string;
   };
 }
+
+export interface IResponse<T> {
+  dataArr: T[];
+  total: number;
+}
+
+export interface IAction<T> {
+  type: string;
+  payload: T;
+}
+
+export interface IFilters {
+  source: ISource | undefined;
+  category: string;
+  dateFilter: { from: string; to: string };
+}

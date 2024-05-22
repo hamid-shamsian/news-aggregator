@@ -2,10 +2,11 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import themeModeReducer from "./features/themeModeSlice";
+import filtersReducer from "./features/filtersSlice";
 
 const persistConfig = { key: "root", storage, blacklist: [] };
 
-const rootReducer = combineReducers({ themeMode: themeModeReducer });
+const rootReducer = combineReducers({ themeMode: themeModeReducer, filters: filtersReducer });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

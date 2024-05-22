@@ -1,12 +1,7 @@
 import { InfiniteData, useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import apiGetRequest from "../services/apiClient";
 import { getValueFromPath, mapToDataModel } from "../utils/utilFunctions";
-import { ISource, DataType } from "../@types";
-
-export interface IResponse<T> {
-  dataArr: T[];
-  total: number;
-}
+import { ISource, DataType, IResponse } from "../@types";
 
 const fetchData = async <T,>(dataType: DataType, source: ISource, queries?: string, signal?: AbortSignal): Promise<IResponse<T>> => {
   const { baseURL, staticParams, pathToDataInResponseBody, pathToTotalInResponseBody } = source;
