@@ -46,16 +46,20 @@ const NewsExplorer = ({ sources, searchQuery }: NewsAggregatorProps) => {
     dispatch(filtersActions.changeDateFilter(values));
   };
 
+  const sourceInitialValue = sourceOptions.findIndex(opt => opt.label === source?.name).toString();
+
   return (
     <>
       <Box sx={{ alignSelf: "stretch", display: "grid", gap: 3, gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" } }}>
-        <SelectBox label='Source' options={sourceOptions} onValueChange={handleSourceChange} />
+        <SelectBox label='Source' options={sourceOptions} initialValue={sourceInitialValue} onValueChange={handleSourceChange} />
 
-        {source?.staticCategories && <SelectBox label='Category' options={source.staticCategories} onValueChange={handleCategoryChange} />}
-        {source?.categories && <DynamicCategoriesBox source={source} onCategoryChange={handleCategoryChange} />}
+        {source?.staticCategories && (
+          <SelectBox label='Category' options={source.staticCategories} initialValue={category} onValueChange={handleCategoryChange} />
+        )}
+        {source?.categories && <DynamicCategoriesBox source={source} initialValue={category} onCategoryChange={handleCategoryChange} />}
       </Box>
 
-      {source?.filteringByDate && <DateFilterBox onChangeValues={handleDateFilter} />}
+      {source?.filteringByDate && <DateFilterBox initialValues={dateFilter} onChangeValues={handleDateFilter} />}
 
       <InfiniteList<INews> data={news?.pages ?? []} hasMore={hasNextPage} nextFn={fetchNextPage}>
         {({ item }) => <NewsCard news={item} />}

@@ -11,16 +11,21 @@ interface SelectBoxProps {
     value: string;
     isDefault?: boolean;
   }[];
+  initialValue?: string;
   onValueChange: (value: string) => void;
 }
 
-const SelectBox = ({ label, options = [], onValueChange }: SelectBoxProps) => {
+const SelectBox = ({ label, options = [], initialValue, onValueChange }: SelectBoxProps) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    const defaultValue = options.find(option => option.isDefault)?.value;
-    if (defaultValue !== undefined) handleChange({ target: { value: defaultValue } } as SelectChangeEvent);
-  }, [options]);
+    if (initialValue) {
+      setValue(initialValue);
+    } else {
+      const defaultValue = options.find(option => option.isDefault)?.value;
+      if (defaultValue !== undefined) handleChange({ target: { value: defaultValue } } as SelectChangeEvent);
+    }
+  }, [options, initialValue]);
 
   const handleChange = ({ target: { value } }: SelectChangeEvent) => {
     setValue(value);
