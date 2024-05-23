@@ -9,7 +9,7 @@ some options like "BBC NEWS API" or "CredNews" do not exist at all! and some oth
 
 I first searched and investigated myself and when realized that apparently there are no serices (at least suitable for a FREE NEWS AGGREGATOR app) from bbc, newscred and opennews; i asked it from Chatgpt-v4 to make sure that its right...
 
-> > > About NewsCred:
+#### About NewsCred:
 
 -Me: is there any news api named like: newscred or news cred?
 -ChatGPT: Yes, there is an API known as NewsCred, which is a part of a larger platform called Welcome Software (formerly known as NewsCred). NewsCred started as a content marketing and licensing platform that aggregated content from various publishers for use in marketing and corporate communications. Over time, it has evolved to offer a broader range of content marketing services and software solutions.
@@ -21,12 +21,12 @@ Their platform might still provide access to a wide range of licensed content, u
 -Me: is it suitable for development use?
 -ChatGPT: Welcome Software (formerly NewsCred) is primarily designed for content marketing and enterprise-level marketing operations, rather than for typical development use like building a news aggregator. Its features focus more on marketing campaign management, content curation, workflow automation, and analytics rather than simply providing news feeds.
 
-> > > About BBC:
+#### About BBC:
 
 -Me: does bbc news has an api?
 -ChatGPT: BBC News itself does not provide a public API that gives direct access to its news content. While BBC once offered some RSS feeds and other data services, these have mostly been restricted or integrated into their internal platforms, and they don't provide a full-fledged API for developers to access news articles programmatically.
 
-> > > About OpenNews:
+#### About OpenNews:
 
 -Me: is opennews api suitable for using as a source for a free small news aggragator app?
 -ChatGPT: Yes, the OpenNews API could be suitable for use in a small, free news aggregator app. It is freely available with no limit on usage, gathers data from various articles using a scraping tool, and is built on Laravel 8. This makes it potentially useful for developers looking for an unrestricted source of news data for aggregation purposes. However, ensure its data sources and scraping methods align with your legal and ethical requirements for content usage.
@@ -36,7 +36,9 @@ Their platform might still provide access to a wide range of licensed content, u
 
 ==========================================================================
 
-and from the API list provided to me, no 7 is repetitive! no 7 is NewsAPI.org that was counted as the first option in no 1.
+#### Other Considerations:
+
+And from the API list provided to me, no 7 is repetitive! no 7 is NewsAPI.org that was counted as the first option in no 1.
 
 so with these considerations, only the options: "NewsAPI" and "The guardian" and "The NewYork Times" remain. I used the two first ones in the
 app but for NYTimes, as you can see yourself in its docs, there is a legacy and inconsistent API for NYTimes but it really cant be used as a resource for a dynamic code. the endpoint for the sections or categories are totally different from each other and from the base endpoint.
@@ -45,4 +47,8 @@ requires a standard REST API with standard endpoints and all other parameters as
 
 other considerations is that none of these two used APIs has the ability to filter for authors. in fact they even dont has any endpoint or parameter for getting the list of authors so FILTERING BY AUTHORS that was requested in the Challenge IS NOT POSSIBLE!
 
+NewsAPI has a static list of categories and the Guardian has a specific endpoint for getting categories dynamically. so i implemented a dynamic way of loading categories based on config file. so maybe the categories are static and specified in the config file or maybe have an endpoint for getting from an API. i implemented both these scenarios.
+
 also NewsAPI has two endpoints: everything & top-headlines. between these two, one has the parameter for querying category (top-headlines) and doesnt have the query for filtering by date and another one is wise versa! so i implemented filtering by date selectable based on the config file and there i specified whether the source has ability to filter by date or not and based on that, i rendered inputs for date or not.
+
+and at last i used redux persist for persisting the user specified filters and theme mode between page reloads. the better way for this is by saving the user preferences into the project backend but there was no backend in this project so i used redux persist to save them temporarily inside browser local storage.
