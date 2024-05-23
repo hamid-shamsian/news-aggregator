@@ -11,28 +11,53 @@ I first searched and investigated myself and when realized that apparently there
 
 #### About NewsCred:
 
--Me: is there any news api named like: newscred or news cred?
--ChatGPT: Yes, there is an API known as NewsCred, which is a part of a larger platform called Welcome Software (formerly known as NewsCred). NewsCred started as a content marketing and licensing platform that aggregated content from various publishers for use in marketing and corporate communications. Over time, it has evolved to offer a broader range of content marketing services and software solutions.
+##### Me:
+
+is there any news api named like: newscred or news cred?
+
+##### ChatGPT:
+
+Yes, there is an API known as NewsCred, which is a part of a larger platform called Welcome Software (formerly known as NewsCred). NewsCred started as a content marketing and licensing platform that aggregated content from various publishers for use in marketing and corporate communications. Over time, it has evolved to offer a broader range of content marketing services and software solutions.
 
 Welcome Software, including what was previously part of NewsCred, provides tools that help companies manage marketing campaigns, workflows, and content distribution. If you're interested in using NewsCred for accessing news or content as part of a broader marketing strategy, you might explore the features offered by Welcome Software.
 
 Their platform might still provide access to a wide range of licensed content, useful for businesses seeking to enhance their content marketing efforts. However, if your primary interest is in directly fetching news articles for a news aggregator, you might be better served by other dedicated news APIs that focus specifically on news aggregation and distribution.
 
--Me: is it suitable for development use?
--ChatGPT: Welcome Software (formerly NewsCred) is primarily designed for content marketing and enterprise-level marketing operations, rather than for typical development use like building a news aggregator. Its features focus more on marketing campaign management, content curation, workflow automation, and analytics rather than simply providing news feeds.
+##### Me:
+
+is it suitable for development use?
+
+##### ChatGPT:
+
+Welcome Software (formerly NewsCred) is primarily designed for content marketing and enterprise-level marketing operations, rather than for typical development use like building a news aggregator. Its features focus more on marketing campaign management, content curation, workflow automation, and analytics rather than simply providing news feeds.
 
 #### About BBC:
 
--Me: does bbc news has an api?
--ChatGPT: BBC News itself does not provide a public API that gives direct access to its news content. While BBC once offered some RSS feeds and other data services, these have mostly been restricted or integrated into their internal platforms, and they don't provide a full-fledged API for developers to access news articles programmatically.
+##### Me:
+
+does bbc news has an api?
+
+##### ChatGPT:
+
+BBC News itself does not provide a public API that gives direct access to its news content. While BBC once offered some RSS feeds and other data services, these have mostly been restricted or integrated into their internal platforms, and they don't provide a full-fledged API for developers to access news articles programmatically.
 
 #### About OpenNews:
 
--Me: is opennews api suitable for using as a source for a free small news aggragator app?
--ChatGPT: Yes, the OpenNews API could be suitable for use in a small, free news aggregator app. It is freely available with no limit on usage, gathers data from various articles using a scraping tool, and is built on Laravel 8. This makes it potentially useful for developers looking for an unrestricted source of news data for aggregation purposes. However, ensure its data sources and scraping methods align with your legal and ethical requirements for content usage.
+##### Me:
 
--Me: i dont want to install anything in my machine. i want to use the api only as a rest api endpoint to send http request and give the answer. is it possible with opne news?
--ChatGPT: The OpenNews API is designed for deployment on your local environment, and it doesn't provide a hosted REST API endpoint directly accessible over the internet. To use it as a REST API without installing it on your machine, you would need access to a deployed version of it online. However, the documentation does not indicate any publicly available hosted endpoint. You may need to deploy it to a cloud service yourself or find a similar API that is already hosted and available for public use.
+is opennews api suitable for using as a source for a free small news aggragator app?
+
+##### ChatGPT:
+
+Yes, the OpenNews API could be suitable for use in a small, free news aggregator app. It is freely available with no limit on usage, gathers data from various articles using a scraping tool, and is built on Laravel 8. This makes it potentially useful for developers looking for an unrestricted source of news data for aggregation purposes. However, ensure its data sources and scraping methods align with your legal and ethical requirements for content usage.
+
+##### Me:
+
+i dont want to install anything in my machine. i want to use the api only as a rest api endpoint to send http request and give the answer. is it possible with opne news?
+
+##### ChatGPT:
+
+The OpenNews API is designed for deployment on your local environment, and it doesn't provide a hosted REST API endpoint directly accessible over the internet. To use it as a REST API without installing it on your machine, you would need access to a deployed version of it online. However, the documentation does not indicate any publicly available hosted endpoint. You may need to deploy it to a cloud service yourself or find a similar API that is already hosted and available for public use.
 
 ==========================================================================
 
