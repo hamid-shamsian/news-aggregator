@@ -46,12 +46,12 @@ const NewsExplorer = ({ sources, searchQuery }: NewsAggregatorProps) => {
     dispatch(filtersActions.changeDateFilter(values));
   };
 
-  const sourceInitialValue = sourceOptions.findIndex(opt => opt.label === source?.name).toString();
+  const sourcePersistedValue = source && sourceOptions.findIndex(opt => opt.label === source?.name).toString();
 
   return (
     <>
       <Box sx={{ alignSelf: "stretch", display: "grid", gap: 3, gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" } }}>
-        <SelectBox label='Source' options={sourceOptions} initialValue={sourceInitialValue} onValueChange={handleSourceChange} />
+        <SelectBox label='Source' options={sourceOptions} initialValue={sourcePersistedValue} onValueChange={handleSourceChange} />
 
         {source?.staticCategories && (
           <SelectBox label='Category' options={source.staticCategories} initialValue={category} onValueChange={handleCategoryChange} />
