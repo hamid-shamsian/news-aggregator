@@ -35,7 +35,7 @@ Welcome Software (formerly NewsCred) is primarily designed for content marketing
 
 ##### Me:
 
-does bbc news has an api?
+does bbc news have an api?
 
 ##### ChatGPT:
 
@@ -77,3 +77,18 @@ NewsAPI has a static list of categories and the Guardian has a specific endpoint
 also NewsAPI has two endpoints: everything & top-headlines. between these two, one has the parameter for querying category (top-headlines) and doesnt have the query for filtering by date and another one is wise versa! so i implemented filtering by date selectable based on the config file and there i specified whether the source has ability to filter by date or not and based on that, i rendered inputs for date or not.
 
 and at last i used redux persist for persisting the user specified filters and theme mode between page reloads. the better way for this is by saving the user preferences into the project backend but there was no backend in this project so i used redux persist to save them temporarily inside browser local storage.
+
+I wrote the dockerfile for this project to be used to build docker image of this project.
+And also I wrote a config file for nginx server (that is used to serve the app inside docker container) to tell nginx redirect any non-root request to root url and only serve index.html for any route to pass control of routing to React Router and in client side.
+
+for building the docker image, run this command from the project root (docker must be installed on the system):
+
+### docker build -t news-aggregator:1.0 .
+
+and for running built image and run the container run this command:
+
+### docker run -p 80:80 news-aggregator:1.0
+
+the project will be run on:
+
+### http://localhost
